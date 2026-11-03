@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Workflow interview, out loud — Watch City Analytics</title>
+<meta name="description" content="Tell us about one process that takes longer than it should. Ten minutes, and you keep the write-up.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#FBFAF8; --ink:#161C21; --body:#434F59; --muted:#6B7781;
+  --rule:#DCD8D0; --brass:#8A5E18; --tint:#F2EADC; --deep:#10171C; --onDeep:#E8E3D9;
+  --display:"Newsreader",Georgia,serif;
+  --text:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper:#12171B; --ink:#EDE8DF; --body:#A8B2BA; --muted:#8A959D;
+    --rule:#2A333A; --brass:#C79A4A; --tint:#1C262D; --deep:#0A0F13; --onDeep:#EDE8DF;
+    color-scheme: dark; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--body);font-family:var(--text);font-size:17.5px;
+  line-height:1.68;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+.gut{width:100%;max-width:720px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{background:var(--deep);color:var(--onDeep);flex:none}
+header .gut{padding-block:16px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:12px;flex-wrap:wrap}
+.mark{font-family:var(--display);font-size:1.05rem;color:#fff;text-decoration:none}
+.mark em{font-style:italic;color:#C79A4A}
+header .why{font-size:.84rem;color:#9FAEB8}
+main{flex:1 1 auto;overflow-y:auto}
+main .gut{padding-block:26px 20px}
+.intro{border-left:3px solid var(--brass);padding-left:18px;margin-bottom:28px}
+.intro h1{font-family:var(--display);font-weight:400;font-size:clamp(1.45rem,4vw,1.95rem);
+  color:var(--ink);line-height:1.18;letter-spacing:-.012em;margin-bottom:10px;text-wrap:balance}
+.intro p{font-size:.98rem;max-width:60ch}
+.intro p+p{margin-top:10px}
+.turn{margin-bottom:22px}
+.turn .who{font-size:.72rem;letter-spacing:.09em;font-weight:600;color:var(--muted);margin-bottom:6px}
+.turn.them .bubble{font-family:var(--display);font-size:1.12rem;color:var(--ink);
+  line-height:1.5;max-width:60ch}
+.turn.you .bubble{background:var(--tint);border-left:2px solid var(--rule);
+  padding:12px 16px;max-width:60ch;font-size:.97rem}
+.turn .bubble p+p{margin-top:12px}
+.thinking{color:var(--muted);font-style:italic}
+form{flex:none;border-top:1px solid var(--rule);background:var(--paper)}
+form .gut{padding-block:14px calc(14px + env(safe-area-inset-bottom,0px))}
+.row{display:flex;gap:10px;align-items:flex-end}
+textarea{flex:1 1 auto;min-width:0;resize:none;font:inherit;color:var(--ink);
+  background:var(--paper);border:1px solid var(--rule);border-radius:2px;
+  padding:11px 13px;line-height:1.5;max-height:160px}
+textarea:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
+button{font:inherit;font-weight:600;font-size:.94rem;cursor:pointer;border:0;
+  border-radius:2px;padding:12px 22px;background:var(--brass);color:#fff;flex:none}
+button:hover:not(:disabled){background:#A4712A}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+button.quiet{background:transparent;color:var(--brass);border:1px solid var(--rule)}
+.hint{margin-top:8px;font-size:.85rem;color:var(--muted)}
+.assure{list-style:none;margin:16px 0 0;padding:0;max-width:60ch}
+.assure li{position:relative;padding-left:20px;margin-top:7px;font-size:.95rem;color:var(--muted)}
+.assure li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;
+  border:1px solid var(--brass);border-radius:50%}
+.back{margin-top:16px;font-size:.95rem}
+.back a{color:var(--brass)}
+/* A stranger typing about her own job deserves a roomier box than a chat app. */
+@media (max-width:620px){
+  .row{flex-direction:column;align-items:stretch}
+  .row textarea{width:100%;min-height:120px}
+  .row button{width:100%}
+}
+.brief{border:1px solid var(--rule);border-top:3px solid var(--brass);padding:24px 22px;margin-top:8px}
+.brief h2{font-family:var(--display);font-weight:500;font-size:1.3rem;color:var(--ink);margin-bottom:4px}
+.brief .sub{font-size:.86rem;color:var(--muted);margin-bottom:18px}
+.brief pre{white-space:pre-wrap;word-wrap:break-word;font:inherit;font-size:.95rem;
+  color:var(--body);max-height:420px;overflow-y:auto}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.who-box{border:1px solid var(--rule);border-left:3px solid var(--brass);
+  padding:20px 22px;margin-top:8px;max-width:46ch}
+.who-box h3{font-family:var(--display);font-weight:500;font-size:1.12rem;
+  color:var(--ink);margin-bottom:6px}
+.who-box .sub{font-size:.86rem;color:var(--muted);margin-bottom:16px}
+.who-box label{display:block;font-size:.78rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--muted);margin:12px 0 4px}
+.who-box input{width:100%;font:inherit;font-size:.95rem;color:var(--ink);
+  background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:9px 11px}
+.who-box input:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
+.note{font-size:.85rem;color:var(--muted);margin-top:14px;max-width:58ch}
+.err{border-left:3px solid #B4522E;background:rgba(180,82,46,.08);padding:12px 16px;
+  font-size:.92rem;margin-bottom:20px;max-width:60ch}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* End of the road: the brief is not the last thing you see. */
+.next{margin-top:24px;background:var(--deep);color:var(--onDeep);padding:26px 24px;border-radius:2px}
+.next h2{font-family:var(--display);font-weight:500;font-size:1.28rem;color:#fff;margin-bottom:5px}
+.next .sub{font-size:.9rem;color:#9FB0BC;margin-bottom:20px;max-width:52ch}
+.next ol{list-style:none;counter-reset:n;margin:0 0 24px;padding:0}
+.next ol li{counter-increment:n;position:relative;padding-left:40px;margin-top:15px;
+  font-size:.98rem;color:#D8E2E9;line-height:1.6;max-width:56ch}
+.next ol li::before{content:counter(n);position:absolute;left:0;top:1px;width:25px;height:25px;
+  border:1px solid #C79A4A;color:#C79A4A;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:.78rem;font-weight:600;font-family:var(--text)}
+.next ol li b{color:#fff;font-weight:600}
+.next .onward{border-top:1px solid rgba(199,154,74,.28);padding-top:18px}
+.next .onward .lab{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:#9FB0BC;margin-bottom:10px;font-weight:600}
+.next .onward a{display:block;color:#C79A4A;text-decoration:none;padding:11px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);font-size:1.02rem;font-weight:500}
+.next .onward a:last-child{border-bottom:none}
+.next .onward a:hover{color:#fff}
+.next .onward a span{display:block;color:#9FB0BC;font-size:.88rem;font-weight:400;margin-top:2px}
+
+/* ---------- voice ---------- */
+.voicebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:10px 0 2px;border-bottom:1px solid var(--rule);margin-bottom:12px}
+.voicebar button{padding:10px 18px;font-size:.92rem}
+.mic{display:inline-flex;align-items:center;gap:9px}
+.mic .dot{width:11px;height:11px;border-radius:50%;background:var(--rule);flex:none}
+.mic.live .dot{background:#B4522E;animation:pulse 1.3s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.78)}}
+@media (prefers-reduced-motion:reduce){.mic.live .dot{animation:none}}
+.vstatus{font-size:.9rem;color:var(--muted)}
+.heard{font-style:italic;color:var(--muted);min-height:1.5em;font-size:.95rem;margin-top:4px}
+.micask{border:1px solid var(--rule);border-left:3px solid var(--brass);
+  padding:18px 20px;margin-bottom:16px;max-width:60ch}
+.micask h3{font-family:var(--display);font-weight:500;font-size:1.1rem;
+  color:var(--ink);margin-bottom:8px}
+.micask p{font-size:.95rem;margin-bottom:8px}
+.micask .acts{margin-top:14px}
+.sendsoon{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--tint);border-left:2px solid var(--brass);padding:10px 14px;
+  margin-top:10px;font-size:.93rem}
+.sendsoon button{padding:8px 14px;font-size:.88rem}
+.vwarn{font-size:.88rem;color:var(--muted);padding:10px 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="gut">
+    <a class="mark" href="https://watchcityanalytics.com/">&larr; Watch City <em>Analytics</em></a>
+    <span class="why">Workflow interview &middot; about 10 minutes</span>
+  </div>
+</header>
+
+<main id="main">
+  <div class="gut">
+    <div class="intro" id="intro">
+      <h1>Tell us about one job that takes longer than it should — out loud, if you like.</h1>
+      <p>Not your whole operation. One process — the thing somebody on your team does over and over that eats an afternoon.</p>
+      <p>We'll ask the questions we'd ask sitting in your office, and read them out to you if you want. All of them about how the work gets done — none of them about technology. At the end you get it written down properly, and that's yours to keep whether or not you ever call us.</p>
+
+      <ul class="assure">
+        <li>Ten minutes, and you can stop whenever you like.</li>
+        <li>Answer by talking or by typing, whichever suits. You can switch at any point.</li>
+        <li>No name, no email, no account — not unless you decide to send it to us.</li>
+        <li>What you type is used to write up your job and nothing else. It does not train any AI system and it goes nowhere else.</li>
+        <li>Nobody will ring you. If you'd like a call, you ask for one.</li>
+      </ul>
+
+      <p class="back">Not ready? <a href="https://watchcityanalytics.com/services.html">Read how the free assessment works</a> first.</p>
+    </div>
+    <div id="thread"></div>
+  </div>
+</main>
+
+<form id="composer">
+  <div class="gut">
+    <div class="voicebar" id="voicebar" hidden>
+      <button type="button" id="micBtn" class="quiet">
+        <span class="mic" id="micWrap"><span class="dot"></span><span id="micLabel">Answer out loud</span></span>
+      </button>
+      <span class="vstatus" id="vstatus">You can type instead &mdash; both work.</span>
+      <button type="button" id="muteBtn" class="quiet" hidden>Stop reading aloud</button>
+    </div>
+    <div class="heard" id="heard" aria-live="polite"></div>
+    <div class="row">
+      <textarea id="input" rows="2" placeholder="Describe the process in your own words…" aria-label="Your answer" maxlength="4000"></textarea>
+      <button type="submit" id="send">Send</button>
+    </div>
+    <div class="hint" id="hint">Plain language is better than precise language.</div>
+  </div>
+</form>
+
+<script>
+(function () {
+  var thread = document.getElementById('thread');
+  var main = document.getElementById('main');
+  var form = document.getElementById('composer');
+  var input = document.getElementById('input');
+  var send = document.getElementById('send');
+  var hint = document.getElementById('hint');
+  var intro = document.getElementById('intro');
+
+  var session = null, busy = false, started = false;
+
+  /* ------------------------------------------------------------------
+     Voice. Layered on top of the text interview: the same questions,
+     the same endpoints, the same brief. Typing never goes away.
+
+     Three things drive every decision here:
+       - She is told what the microphone does BEFORE the browser asks.
+       - She sees what we heard, and gets a few seconds to stop it.
+       - If anything is unsupported or refused, the page is a text
+         interview again and nothing is lost.
+     ------------------------------------------------------------------ */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var TTS = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+
+  var voicebar = document.getElementById('voicebar');
+  var micBtn   = document.getElementById('micBtn');
+  var micWrap  = document.getElementById('micWrap');
+  var micLabel = document.getElementById('micLabel');
+  var vstatus  = document.getElementById('vstatus');
+  var muteBtn  = document.getElementById('muteBtn');
+  var heard    = document.getElementById('heard');
+
+  var rec = null, listening = false, wantListening = false;
+  var finalText = '', pauseTimer = null, countdown = null, asked = false;
+  var speakOn = true;
+
+  var PAUSE_MS = 1900;   // long enough to think mid-sentence
+  var GRACE_MS = 4000;   // her window to stop a send
+
+  if (!SR) {
+    // No recognition here. Say so once, plainly, and leave typing alone.
+    voicebar.hidden = false;
+    micBtn.hidden = true;
+    vstatus.innerHTML = 'Answering out loud needs Chrome or Edge on a computer. ' +
+                        'Typing works everywhere, including here.';
+    if (TTS) { setupMute(); }
+  } else {
+    voicebar.hidden = false;
+    micBtn.addEventListener('click', onMicClick);
+    if (TTS) { setupMute(); }
+  }
+
+  function setupMute(){
+    muteBtn.hidden = false;
+    muteBtn.addEventListener('click', function(){
+      speakOn = !speakOn;
+      if (!speakOn) { try { TTS.cancel(); } catch(e){} }
+      muteBtn.textContent = speakOn ? 'Stop reading aloud' : 'Read questions aloud';
+    });
+  }
+
+  function onMicClick(){
+    if (listening || wantListening) { stopListening('Stopped.'); return; }
+    if (!asked) { explainMic(); return; }
+    startListening();
+  }
+
+  /* The permission prompt is the moment a cautious person backs out.
+     So it is never the first thing that happens. */
+  function explainMic(){
+    var box = document.createElement('div');
+    box.className = 'micask';
+    box.innerHTML =
+      '<h3>Before your browser asks</h3>' +
+      '<p>Your browser is about to ask permission to use the microphone. That is it ' +
+      'asking, not us.</p>' +
+      '<p>We turn what you say into text so the questions can carry on. You will see ' +
+      'every word on screen before it is sent, and you can fix or delete any of it. ' +
+      'Nothing is recorded or kept &mdash; no audio of your voice goes anywhere.</p>' +
+      '<p>You can switch it off at any point and carry on typing.</p>' +
+      '<div class="acts">' +
+        '<button type="button" id="micYes">Turn the microphone on</button>' +
+        '<button type="button" class="quiet" id="micNo">No, I will type</button>' +
+      '</div>';
+    thread.appendChild(box);
+    main.scrollTop = main.scrollHeight;
+    document.getElementById('micYes').addEventListener('click', function(){
+      asked = true; box.remove(); startListening();
+    });
+    document.getElementById('micNo').addEventListener('click', function(){
+      box.remove();
+      vstatus.textContent = 'Fine — typing it is.';
+      input.focus();
+    });
+  }
+
+  function buildRec(){
+    var r = new SR();
+    r.continuous = true;
+    r.interimResults = true;
+    r.lang = document.documentElement.lang || 'en-US';
+
+    r.onresult = function(ev){
+      var interim = '';
+      for (var i = ev.resultIndex; i < ev.results.length; i++){
+        var t = ev.results[i][0].transcript;
+        if (ev.results[i].isFinal) { finalText += t; } else { interim += t; }
+      }
+      heard.textContent = (finalText + interim).trim();
+      schedulePause();
+    };
+
+    r.onerror = function(ev){
+      if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed'){
+        wantListening = false; setLive(false);
+        vstatus.innerHTML = 'The microphone was blocked. You can allow it from the icon ' +
+          'in the address bar, or just carry on typing.';
+        return;
+      }
+      if (ev.error === 'no-speech' || ev.error === 'aborted') { return; }
+      vstatus.textContent = 'The microphone stopped. Try again, or type your answer.';
+    };
+
+    // Chrome ends recognition on its own after a quiet spell. If she has not
+    // asked us to stop, start it again so the conversation does not die.
+    r.onend = function(){
+      setLive(false);
+      if (wantListening) { try { r.start(); setLive(true); } catch(e){} }
+    };
+    return r;
+  }
+
+  function startListening(){
+    if (busy) { vstatus.textContent = 'One moment — still writing.'; return; }
+    if (!rec) { rec = buildRec(); }
+    finalText = ''; heard.textContent = '';
+    wantListening = true;
+    try { rec.start(); } catch(e){}
+    setLive(true);
+    vstatus.textContent = 'Listening. Take your time — pause when you are done.';
+  }
+
+  function stopListening(msg){
+    wantListening = false;
+    clearTimeout(pauseTimer);
+    if (rec) { try { rec.stop(); } catch(e){} }
+    setLive(false);
+    if (msg) { vstatus.textContent = msg; }
+  }
+
+  function setLive(on){
+    listening = on;
+    micWrap.classList.toggle('live', on);
+    micLabel.textContent = on ? 'Stop' : 'Answer out loud';
+  }
+
+  function schedulePause(){
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(function(){
+      var said = (finalText || heard.textContent || '').trim();
+      if (said.length < 2) { return; }
+      stopListening('');
+      offerSend(said);
+    }, PAUSE_MS);
+  }
+
+  /* Never send what she has not had a chance to look at. "Saco" comes back
+     as "psycho" often enough that this is not a nicety. */
+  function offerSend(said){
+    input.value = said;
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+    heard.textContent = '';
+
+    var bar = document.createElement('div');
+    bar.className = 'sendsoon';
+    bar.innerHTML = '<span>Sending in <strong id="ctdn">4</strong>…</span>' +
+      '<button type="button" id="sendNow">Send now</button>' +
+      '<button type="button" class="quiet" id="holdOn">Wait, let me fix that</button>';
+    form.querySelector('.gut').appendChild(bar);
+
+    var left = Math.round(GRACE_MS / 1000);
+    var tick = document.getElementById('ctdn');
+    countdown = setInterval(function(){
+      left -= 1;
+      if (tick) { tick.textContent = left; }
+      if (left <= 0) { clearInterval(countdown); bar.remove(); go(); }
+    }, 1000);
+
+    function clean(){ clearInterval(countdown); bar.remove(); }
+    function go(){ if (input.value.trim()) { form.requestSubmit(); } }
+
+    document.getElementById('sendNow').addEventListener('click', function(){ clean(); go(); });
+    document.getElementById('holdOn').addEventListener('click', function(){
+      clean();
+      vstatus.textContent = 'Go ahead — edit it, then press Send.';
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    });
+    // Touching the box at all cancels the timer. Nobody should be raced.
+    input.addEventListener('input', clean, { once: true });
+  }
+
+  /* Read the interviewer's questions, not the write-up. A brief read aloud
+     is four minutes of nobody listening. */
+  window.__wcaStopVoice = function(){ stopListening(''); if(TTS){ try{TTS.cancel();}catch(e){} } };
+
+  window.__wcaSpeak = function(text){
+    if (!TTS || !speakOn || !text) { return; }
+    try {
+      TTS.cancel();
+      var u = new SpeechSynthesisUtterance(String(text).slice(0, 700));
+      u.rate = 0.98; u.pitch = 1;
+      u.lang = document.documentElement.lang || 'en-US';
+      u.onend = function(){
+        // Hand the floor back only if she was using her voice to begin with.
+        if (asked && !busy) { startListening(); }
+      };
+      TTS.speak(u);
+    } catch(e){}
+  };
+
+
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function paras(s){return String(s).trim().split(/\n{2,}/).map(function(p){
+    return '<p>'+esc(p).replace(/\n/g,'<br>')+'</p>';}).join('');}
+
+  function addTurn(role, text){
+    var d=document.createElement('div');
+    d.className='turn '+(role==='you'?'you':'them');
+    d.innerHTML='<div class="who">'+(role==='you'?'YOU':'WATCH CITY')+
+      '</div><div class="bubble">'+paras(text)+'</div>';
+    thread.appendChild(d); main.scrollTop=main.scrollHeight; return d;
+  }
+  function addThinking(label){
+    var d=addTurn('them', label||'Thinking…');
+    d.querySelector('.bubble').classList.add('thinking'); return d;
+  }
+  function showError(msg){
+    var d=document.createElement('div'); d.className='err'; d.textContent=msg;
+    thread.appendChild(d); main.scrollTop=main.scrollHeight;
+  }
+  function setBusy(b){busy=b;send.disabled=b;input.disabled=b;}
+
+  input.addEventListener('input',function(){
+    input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,160)+'px';});
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit();}});
+
+  async function post(url, body){
+    var r = await fetch(url, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body||{})
+    });
+    var data = {};
+    try { data = await r.json(); } catch(e){}
+    if(!r.ok) throw new Error(data.error || 'Something went wrong. Try again.');
+    return data;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(busy) return;
+    var text=input.value.trim();
+    if(!text) return;
+    input.value=''; input.style.height='auto';
+    if(intro){intro.style.display='none';}
+    addTurn('you', text);
+    setBusy(true);
+
+    try {
+      if(!started){
+        var s = await post('/api/start');
+        session = s.session; started = true;
+      }
+      var node = addThinking();
+      var res = await post('/api/message', {session:session, message:text});
+      node.remove();
+      if(res.type==='brief'){ renderBrief(res.text,false); return; }
+      if(res.type==='contact'){ renderContact(res.text); return; }
+      addTurn('them', res.text);
+      if(window.__wcaSpeak){ window.__wcaSpeak(res.text); }
+      if(typeof res.turnsLeft==='number' && res.turnsLeft<=3){
+        hint.textContent='A few questions left before we write this up.';
+      }
+      setBusy(false); input.focus();
+    } catch(err){
+      setBusy(false);
+      showError(err.message);
+    }
+  });
+
+  function renderContact(text){
+    form.style.display='none';
+    if(window.__wcaStopVoice){ window.__wcaStopVoice(); }
+    addTurn('them', text);
+    var box=document.createElement('div'); box.className='who-box';
+    box.innerHTML='<h3>Who should we follow up with?</h3>'+
+      '<div class="sub">Every field is optional. Skip and you still get your write-up.</div>'+
+      '<label for="wName">Name</label><input id="wName" autocomplete="name">'+
+      '<label for="wOrg">Organization</label><input id="wOrg" autocomplete="organization">'+
+      '<label for="wRole">Your role</label><input id="wRole" autocomplete="organization-title">'+
+      '<label for="wEmail">Email</label><input id="wEmail" type="email" autocomplete="email" '+
+      'inputmode="email" placeholder="so a person can reply to you">'+
+      '<div class="acts"><button type="button" id="whoGo">Write up my workflow</button>'+
+      '<button type="button" class="quiet" id="whoSkip">Skip this</button></div>';
+    thread.appendChild(box);
+    main.scrollTop=main.scrollHeight;
+    var nameEl=document.getElementById('wName');
+    if(nameEl){nameEl.focus();}
+
+    var submitting=false;
+    async function finish(withDetails){
+      if(submitting) return; submitting=true;
+      var go=document.getElementById('whoGo'), skip=document.getElementById('whoSkip');
+      go.disabled=true; skip.disabled=true; go.textContent='Writing…';
+      var payload={session:session}, gaveEmail=false;
+      if(withDetails){
+        payload.name=(document.getElementById('wName').value||'').trim();
+        payload.organization=(document.getElementById('wOrg').value||'').trim();
+        payload.role=(document.getElementById('wRole').value||'').trim();
+        payload.email=(document.getElementById('wEmail').value||'').trim();
+        gaveEmail = payload.email.indexOf('@')>0;
+      }
+      try{
+        var res=await post('/api/contact', payload);
+        box.remove();
+        renderBrief(res.text, gaveEmail);
+      }catch(err){
+        submitting=false; go.disabled=false; skip.disabled=false;
+        go.textContent='Write up my workflow';
+        showError(err.message);
+      }
+    }
+    document.getElementById('whoGo').addEventListener('click',function(){finish(true);});
+    document.getElementById('whoSkip').addEventListener('click',function(){finish(false);});
+    box.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();finish(true);}});
+  }
+
+  function renderBrief(text, gaveEmail){
+    form.style.display='none';
+    if(window.__wcaStopVoice){ window.__wcaStopVoice(); }
+    var box=document.createElement('div'); box.className='brief';
+    box.innerHTML='<h2>Your workflow, written up</h2>'+
+      '<div class="sub">Yours to keep. Send it to us and we will tell you what we think it is worth.</div>'+
+      '<pre id="briefText"></pre>'+
+      '<div class="acts"><button type="button" id="copyBtn">Copy this summary</button>'+
+      '<a class="quiet" style="text-decoration:none;display:inline-block;padding:12px 22px;'+
+      'border:1px solid var(--rule);border-radius:2px;color:var(--brass);font-weight:600;font-size:.94rem" '+
+      'id="mailBtn" href="#">Email it to us</a></div>'+
+      '<p class="note">We read every one and reply with where we think the time actually is — '+
+      'including when the answer is that there is not enough here to be worth doing.</p>';
+    thread.appendChild(box);
+    document.getElementById('briefText').textContent=text;
+    main.scrollTop=main.scrollHeight;
+
+    // Carry the write-up in the mail body. Mail clients and browsers stop
+    // honouring very long mailto URLs, so past a safe length we send the
+    // opening and ask for the rest to be pasted rather than silently
+    // handing over a truncated brief.
+    var LIMIT=1400, body=text, note='';
+    if(body.length>LIMIT){
+      body=body.slice(0,LIMIT);
+      note='\n\n--- The rest was too long to carry in a mail link. '+
+           'Use "Copy this summary" above and paste it here. ---\n';
+    }
+    document.getElementById('mailBtn').href=
+      'mailto:info@watchcityanalytics.com'+
+      '?subject='+encodeURIComponent('Workflow interview')+
+      '&body='+encodeURIComponent(body+note);
+    document.getElementById('copyBtn').addEventListener('click',function(){
+      var btn=this;
+      var done=function(ok){btn.textContent=ok?'Copied':'Select the text to copy';
+        setTimeout(function(){btn.textContent='Copy this summary';},2600);};
+      try{ navigator.clipboard.writeText(text).then(function(){done(true);},function(){done(false);}); }
+      catch(e){ done(false); }
+    });
+
+    renderNext(gaveEmail);
+  }
+
+  // The brief used to be the last thing on the page, which left people
+  // with nowhere to go. Say what happens now, then open three doors.
+  function renderNext(gaveEmail){
+    var SITE='https://watchcityanalytics.com/';
+    var steps = gaveEmail
+      ? '<li><b>It is already with us.</b> You left us a way to reply, so there is '+
+        'nothing else you need to send.</li>'+
+        '<li><b>A person reads it.</b> Not a form response. We go through what you '+
+        'described and work out where the hours actually sit.</li>'+
+        '<li><b>You hear back either way.</b> Including when the honest answer is that '+
+        'there is not enough time in this one to be worth doing.</li>'
+      : '<li><b>We have the write-up, but no way to reach you.</b> You skipped the '+
+        'contact step, which was your right.</li>'+
+        '<li><b>Send it when you are ready.</b> Copy it above, or use the email button '+
+        '— that is the whole of what we need from you.</li>'+
+        '<li><b>You hear back either way.</b> Including when the honest answer is that '+
+        'there is not enough time in this one to be worth doing.</li>';
+
+    var box=document.createElement('div'); box.className='next';
+    box.innerHTML='<h2>What happens next</h2>'+
+      '<div class="sub">Short version: nothing you have to chase.</div>'+
+      '<ol>'+steps+'</ol>'+
+      '<div class="onward">'+
+        '<div class="lab">While you are here</div>'+
+        '<a href="'+SITE+'casestudies.html">Weeks that looked like yours'+
+          '<span>A town office, a school business office, a family business running on one person\u2019s memory</span></a>'+
+        '<a href="'+SITE+'athletics.html">If it was film you just described'+
+          '<span>What we do for athletic programs, and what it costs to stop renting your own archive</span></a>'+
+        '<a href="'+SITE+'services.html">How the free assessment works'+
+          '<span>What we measure, what you get, and where the money comes from</span></a>'+
+        '<a href="'+SITE+'">Back to the main site</a>'+
+      '</div>';
+    thread.appendChild(box);
+    main.scrollTop=main.scrollHeight;
+  }
+})();
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Watch City Analytics — we give you back the afternoon that job eats</title>
-<meta name="description" content="For town and city offices, school districts, athletic programs and family-run businesses. We find out what one slow job really costs you in hours, then take the repetitive half of it off your hands. Finding out costs nothing.">
+<meta name="description" content="For state and local government, schools and colleges, small businesses and non-profits. We find out what one slow job really costs you in hours, then take the repetitive half of it off your hands. Finding out costs nothing.">
 <link rel="canonical" href="https://watchcityanalytics.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -59,7 +59,7 @@
       </g></g>
     </svg>
   <div class="wrap">
-    <p class="eyebrow">For town and city offices, school districts, athletic programs and family-run businesses</p>
+    <p class="eyebrow">For state and local government, schools and colleges, small businesses and non-profits</p>
     <h1>You know the work. We give you back the afternoon it eats.</h1>
     <p class="sub">Pick one job — the slow one, the one nobody else can do properly. We find out what it really costs you in hours over a year, then take the repetitive half of it off your hands. What we build runs on your own accounts, so it stays yours. Finding out costs nothing, and if the hours are not there we tell you so.</p>
     <p class="say">We do not replace the people who know the work. We give them better instruments.</p>
@@ -74,43 +74,39 @@
   <div class="wrap">
     <div class="rule"></div>
     <h2>Before you call anybody, work out what that job really costs.</h2>
-    <p class="lede">Think of the one you already have in mind. Three questions, your own figures, and nothing assumed. We are not going to tell you what could be saved &mdash; that is what the assessment is for. This is only the arithmetic that almost nobody stops to do.</p>
+    <p class="lede">Think of the one you already have in mind. Two questions, your own figures, and nothing assumed. We are not going to tell you what could be saved &mdash; that is what the assessment is for. This is just the arithmetic, shown in full so you can check it.</p>
 
     <div class="calc">
-      <div>
-        <div class="field">
-          <label for="jCount">How many times a week does it come up?</label>
-          <div class="val"><span id="jCountV">25</span> a week</div>
-          <input type="range" id="jCount" min="1" max="200" value="25"
-                 aria-describedby="jCountH">
-          <div class="hint" id="jCountH">Permits. Purchase orders. Invoices. Game film. Whatever the repeated thing is.</div>
-        </div>
-        <div class="field">
-          <label for="jMins">How long does one take, start to finish?</label>
-          <div class="val"><span id="jMinsV">12</span> minutes</div>
-          <input type="range" id="jMins" min="1" max="120" value="12"
-                 aria-describedby="jMinsH">
-          <div class="hint" id="jMinsH">Count the whole thing &mdash; opening it, typing it in twice, filing it away.</div>
-        </div>
-        <div class="field">
-          <label for="jPeople">How many people touch each one?</label>
-          <div class="val"><span id="jPeopleV">1</span><span id="jPeopleU"> person</span></div>
-          <input type="range" id="jPeople" min="1" max="6" value="1"
-                 aria-describedby="jPeopleH">
-          <div class="hint" id="jPeopleH">If it goes to a second desk for a signature, that is two.</div>
-        </div>
-      </div>
-
       <div class="readout">
-        <div class="big" aria-live="polite"><span id="jHours">260</span><small>hours a year, on this one job</small></div>
-        <div class="weeks" id="jWeeks">That is <strong>6.5</strong> working weeks &mdash; shaded below, out of fifty&#8209;two.</div>
+        <div class="big"><span id="jHours">240</span><small id="jHoursU">hours a year, on this one job</small></div>
+        <div class="weeks" id="jWeeks" aria-live="polite">That is <strong>6.0</strong> working weeks &mdash; shaded below, out of forty&#8209;eight.</div>
         <div class="grid52" id="jGrid" aria-hidden="true"></div>
-        <p class="caption">Your own numbers, multiplied by fifty&#8209;two. Nothing assumed about what could be saved.</p>
+        <p class="caption">Your own numbers, over forty&#8209;eight working weeks &mdash; we have left four for holidays and closures. Nothing assumed about what could be saved.</p>
         <div class="actions" style="margin-top:24px">
           <a class="btn" href="https://interview.watchcityanalytics.com/">Tell us how the job gets done</a>
         </div>
       </div>
+
+      <div class="inputs">
+        <div class="field">
+          <label for="jCount">How many times a week does it come up?</label>
+          <div class="setrow">
+            <input type="range" id="jCount" min="1" max="200" value="25" aria-describedby="jCountH">
+            <input type="number" id="jCountN" min="1" max="200" value="25" aria-label="Times a week, as a number">
+          </div>
+          <div class="hint" id="jCountH">Permits. Purchase orders. Invoices. Work orders. Whatever the repeated thing is.</div>
+        </div>
+        <div class="field">
+          <label for="jMins">How many minutes of staff time does one take?</label>
+          <div class="setrow">
+            <input type="range" id="jMins" min="1" max="240" value="12" aria-describedby="jMinsH">
+            <input type="number" id="jMinsN" min="1" max="240" value="12" aria-label="Minutes per item, as a number">
+          </div>
+          <div class="hint" id="jMinsH">Everybody&rsquo;s time added together &mdash; opening it, typing it in twice, the second desk it goes to for a signature, filing it away.</div>
+        </div>
+      </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -127,7 +123,7 @@
         <p>What you are buying is access. People who have run operations like yours, sitting beside architects who have built the systems that hold the records of companies with a hundred thousand employees. On your problem from the first week, without you paying for anyone to learn your business first.</p>
       </div>
       <aside class="rail">
-        <div class="note"><b>WHO WE WORK WITH</b><span>Small and family-run businesses. Schools, districts and athletic programs. Municipal and public sector teams. Independent studios and brands.</span></div>
+        <div class="note"><b>WHO WE WORK WITH</b><span>State and local government. School districts, colleges and athletic programs. Small businesses and non-profits. In procurement language: SLED, plus small business and non-profit.</span></div>
         <div class="note"><b>HOW WE START</b><span>One workflow. A free assessment. A number you can check, before you pay anything.</span></div>
         <div class="note"><b>WHERE WE ARE</b><span>Maine and Massachusetts, working with organizations across New England and beyond.</span></div>
       </aside>
@@ -144,6 +140,41 @@
     <p>That is the whole firm. Build what a small organization is being priced out of, on infrastructure it controls.</p>
     <div class="actions">
       <a class="btn" href="about.html">Read the rest</a>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>We are small on purpose, and specialized on purpose.</h2>
+    <p class="lede">Not a generalist firm that will take any job. A short list of worlds we actually understand, because somebody here has done the work or sat beside the person doing it. When we do not know a trade, we say so and bring in somebody who does, by name.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Government and public bodies</h3>
+        <p>Town and city offices, state agencies, and the clerks, administrators and finance staff who hold a lot of process in their heads. Permits, licensing, records requests, grant reporting, procurement paperwork.</p>
+      </div>
+      <div class="card">
+        <h3>Schools, districts and colleges</h3>
+        <p>Business offices, athletic departments and administrators from K&ndash;12 through higher ed. Purchasing, restricted-fund reporting, enrollment paperwork, film and performance analysis.</p>
+      </div>
+      <div class="card">
+        <h3>Small business and non-profits</h3>
+        <p>Operations that run on one or two people&rsquo;s memory and no IT department. Property managers, service businesses, boards and volunteers doing by hand what the big version of them automated a decade ago.</p>
+      </div>
+      <div class="card">
+        <h3>Builders and the trades</h3>
+        <p>General contractors putting up houses. Estimates, change orders, subcontractor scheduling, the photographs and paperwork that pile up on every job and get sorted on a Sunday.</p>
+      </div>
+      <div class="card">
+        <h3>Makers and creative work</h3>
+        <p>Software developers and studios, fashion designers, artists and independent brands. Design iteration, production, listings and the dull half of a launch that eats the half you are good at.</p>
+      </div>
+      <div class="card">
+        <h3>Coaches and programs</h3>
+        <p>Youth, club and school coaching staff, mostly volunteers. Film breakdown, opponent scouting, and the Sunday evening it costs to do by hand. <a href="athletics.html">The athletics detail</a>.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -209,49 +240,89 @@
 
 
 <script>
-/* The hours instrument. Pure arithmetic on the visitor's own figures —
-   no assumptions, no savings claims. If it cannot run, the page is
-   unaffected; the readout simply keeps its starting numbers. */
+/* The hours instrument. Pure arithmetic on the visitor's own figures — no
+   assumptions about savings. Two inputs only: an earlier three-slider version
+   multiplied total handling time by the number of people, which double-counted
+   a thirty-second signature into a full twelve minutes. If the script cannot
+   run, the readout simply keeps its starting numbers. */
 (function(){
-  var c=document.getElementById('jCount'), m=document.getElementById('jMins'),
-      p=document.getElementById('jPeople');
-  if(!c||!m||!p) return;
-  var cv=document.getElementById('jCountV'), mv=document.getElementById('jMinsV'),
-      pv=document.getElementById('jPeopleV'), pu=document.getElementById('jPeopleU'),
-      hrs=document.getElementById('jHours'), wks=document.getElementById('jWeeks'),
-      grid=document.getElementById('jGrid'), cells=[];
-  for(var i=0;i<52;i++){ var el=document.createElement('i'); grid.appendChild(el); cells.push(el); }
+  var WEEKS = 48;               // a working year, holidays and closures removed
+  var DAY = 8, WEEK = 40;
+
+  var c  = document.getElementById('jCount'), cN = document.getElementById('jCountN'),
+      m  = document.getElementById('jMins'),  mN = document.getElementById('jMinsN'),
+      hrs= document.getElementById('jHours'), hrsU = document.getElementById('jHoursU'),
+      wks= document.getElementById('jWeeks'), grid = document.getElementById('jGrid');
+  if(!c || !m || !grid) return;
+
+  var cells = [];
+  for(var i=0;i<WEEKS;i++){ var el=document.createElement('i'); grid.appendChild(el); cells.push(el); }
+
+  function num(x){ return x<10 ? x.toFixed(1).replace(/\.0$/,'') : Math.round(x).toLocaleString(); }
+  // "1 working weeks" is the kind of detail that tells a careful reader
+  // nobody checked the thing they are being asked to trust.
+  function plural(x, word){ var s = num(x); return s === '1' ? word : word + 's'; }
+  function clamp(v, el){ var n=parseInt(v,10);
+    if(isNaN(n)) return null;
+    return Math.min(Math.max(n, +el.min), +el.max); }
+
   function render(){
-    var n=+c.value, mi=+m.value, pe=+p.value;
-    cv.textContent=n; mv.textContent=mi; pv.textContent=pe;
-    pu.textContent = pe===1 ? ' person' : ' people';
-    var hours = n*mi*pe*52/60;
-    hrs.textContent = Math.round(hours).toLocaleString();
-    var w = hours/40;
-    var n = function(x){ return x<10 ? x.toFixed(1) : Math.round(x).toLocaleString(); };
-    if(hours < 8){
+    var n = +c.value, mi = +m.value;
+    var hours = n * mi * WEEKS / 60;
+
+    hrs.textContent = hours < 10 ? hours.toFixed(1).replace(/\.0$/,'') : Math.round(hours).toLocaleString();
+    hrsU.textContent = (hours >= 0.95 && hours < 1.05) ? 'hour a year, on this one job'
+                                                       : 'hours a year, on this one job';
+
+    var w = hours / WEEK, fte = w / WEEKS, shade;
+
+    if(hours < DAY){
       // The site promises to say when there is nothing here. So does this.
-      wks.innerHTML = 'That is under a day a year. Honestly, this one is not ' +
-        'worth anybody doing anything about &mdash; ours included.';
+      wks.innerHTML = 'That is under a day a year. Honestly, this one is not worth ' +
+                      'anybody doing anything about &mdash; ours included.';
+      shade = 0;
     } else if(w < 1){
-      wks.innerHTML = 'That is about <strong>' + n(hours/8) +
-        '<\/strong> working days a year.';
-    } else if(w > 52){
-      // Past a year of weeks the comparison stops meaning anything.
-      // Say it in people instead, which is how a budget holder thinks.
-      wks.innerHTML = 'That is the equivalent of <strong>' + n(w/52) +
-        '<\/strong> full-time people, doing nothing else all year.';
+      wks.innerHTML = 'That is about <strong>' + num(hours/DAY) + '<\/strong> working ' +
+                      plural(hours/DAY, 'day') + ' a year.';
+      shade = 0;
+    } else if(w <= WEEKS){
+      wks.innerHTML = 'That is <strong>' + num(w) + '<\/strong> working ' +
+                      plural(w, 'week') + ' &mdash; shaded below, out of forty&#8209;eight.';
+      shade = w;
+    } else if(fte <= 4){
+      wks.innerHTML = 'That is the equivalent of <strong>' + num(fte) + '<\/strong> ' +
+                      plural(fte, 'person') .replace('persons','people') + ' on it full time, all year.';
+      shade = WEEKS;
     } else {
-      wks.innerHTML = 'That is <strong>' + n(w) +
-        '<\/strong> working weeks &mdash; shaded below, out of fifty&#8209;two.';
+      // Drag the sliders to the end and the arithmetic stops meaning anything.
+      // Say so rather than reporting sixty full-time staff with a straight face.
+      wks.innerHTML = 'That is bigger than this little tool should be trusted with. ' +
+                      'If it really is that large, it is worth a conversation rather than a slider.';
+      shade = WEEKS;
     }
-    var full=Math.floor(Math.min(w,52)), frac=Math.min(w,52)-full;
-    for(var j=0;j<52;j++){
+
+    var full, frac;
+    if(shade >= 10){ full = Math.round(shade); frac = 0; }
+    else { full = Math.floor(shade); frac = shade - full; }
+    for(var j=0;j<WEEKS;j++){
       cells[j].className = j<full ? 'on' : (j===full && frac>0.15 ? 'half' : '');
     }
   }
-  c.addEventListener('input',render); m.addEventListener('input',render);
-  p.addEventListener('input',render);
+
+  function bind(slider, box){
+    slider.addEventListener('input', function(){ box.value = slider.value; render(); });
+    box.addEventListener('input', function(){
+      var v = clamp(box.value, slider);
+      if(v === null) return;          // let them finish typing
+      slider.value = v; render();
+    });
+    box.addEventListener('blur', function(){
+      var v = clamp(box.value, slider);
+      box.value = (v === null) ? slider.value : v;
+      slider.value = box.value; render();
+    });
+  }
+  bind(c, cN); bind(m, mN);
   render();
 })();
 </script>

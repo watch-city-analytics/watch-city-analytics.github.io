@@ -287,16 +287,34 @@ footer.site .mark { font-family: var(--display); color: #fff; font-size: 1.05rem
 
 .instrument { background: var(--brassLt); border-block: 1px solid var(--rule); }
 .calc {
-  display: grid; grid-template-columns: minmax(260px, 1fr) minmax(300px, 1.1fr);
+  display: grid; grid-template-columns: minmax(300px, 1.1fr) minmax(260px, 1fr);
   gap: clamp(28px, 5vw, 60px); margin-top: 36px; align-items: start;
 }
+/* The readout is written first in the markup so that on a phone, where the
+   columns stack, the number is above the controls that change it. On a wide
+   screen the inputs belong on the left, so they are reordered back. */
+.calc .readout { order: 2; }
+.calc .inputs  { order: 1; }
+@media (max-width: 860px) {
+  .calc { grid-template-columns: 1fr; }
+  .calc .readout { order: 1; }
+  .calc .inputs  { order: 2; }
+}
+.setrow { display: flex; align-items: center; gap: 14px; }
+.setrow input[type=range] { flex: 1 1 auto; min-width: 0; }
+.setrow input[type=number] {
+  flex: 0 0 5.5rem; font: inherit; font-family: var(--display); font-size: 1.35rem;
+  color: var(--ink); background: #fff; border: 1px solid var(--rule);
+  border-radius: 2px; padding: 8px 10px; text-align: center; min-height: 48px;
+}
+.setrow input[type=number]:focus-visible { outline: 2px solid var(--brass); outline-offset: 1px; }
 .field { margin-bottom: 24px; }
 .field label {
   display: block; font-size: .84rem; letter-spacing: .09em; text-transform: uppercase;
   color: var(--muted); font-weight: 600; margin-bottom: 8px;
 }
 .field .val { font-family: var(--display); font-size: 1.5rem; color: var(--ink); }
-.field input[type=range] { width: 100%; accent-color: var(--brass); height: 30px; }
+.field input[type=range] { width: 100%; accent-color: var(--brass); height: 44px; }
 .field .hint { font-size: .93rem; color: var(--muted); margin-top: 6px; max-width: 42ch; }
 .readout { background: #fff; border: 1px solid var(--rule); padding: clamp(22px, 3vw, 30px); }
 .readout .big {
@@ -308,12 +326,12 @@ footer.site .mark { font-family: var(--display); color: #fff; font-size: 1.05rem
   color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-weight: 600;
 }
 .readout .weeks { margin-top: 24px; font-size: 1.05rem; color: var(--ink); }
-.grid52 { display: grid; grid-template-columns: repeat(13, 1fr); gap: 4px; margin-top: 18px; }
+.grid52 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin-top: 18px; }
 .grid52 i { display: block; aspect-ratio: 1; background: #EDE9E1; border: 1px solid #E2DDD3; }
 .grid52 i.on { background: var(--brass); border-color: var(--brass); }
 .grid52 i.half { background: linear-gradient(135deg, var(--brass) 50%, #EDE9E1 50%); border-color: var(--brass); }
 .readout .caption { font-size: .94rem; color: var(--muted); margin-top: 14px; }
-@media (max-width: 860px) { .calc { grid-template-columns: 1fr; } }
+
 
 /* ---------------- case-study tag ---------------- */
 

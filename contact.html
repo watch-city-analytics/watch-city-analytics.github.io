@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to the content</a>
 
 <header class="site">
   <div class="wrap">
@@ -32,6 +33,7 @@
     </ul></nav>
   </div>
 </header>
+<span id="main" tabindex="-1"></span>
 
 <div class="pagehead">
   <div class="wrap">
@@ -53,11 +55,33 @@
           <a class="btn" href="https://interview.watchcityanalytics.com/">Tell us how the job gets done</a>
         </div>
 
-        <p class="lede" style="margin-top:40px"><strong>Or just write to us.</strong> The most useful first email describes a specific process: what it involves, roughly how much is done by hand today, and why you suspect it should work better. That gives us something real to react to.</p>
+        <h2 style="margin-top:48px" id="write">Or write to us here</h2>
+        <p>Takes a minute. The most useful thing you can say is what the job involves, roughly how much of it is done by hand today, and why you suspect it should work better. That gives us something real to react to.</p>
 
-        <div class="contactbox">
-          <div class="label">EMAIL</div>
+        <form id="enq" class="enq" novalidate>
+          <div class="pair">
+            <div><label for="eName">Your name</label><input id="eName" name="name" autocomplete="name" maxlength="120"></div>
+            <div><label for="eOrg">Organization</label><input id="eOrg" name="organization" autocomplete="organization" maxlength="160"></div>
+          </div>
+          <div class="pair">
+            <div><label for="eEmail">Email</label><input id="eEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="200"></div>
+            <div><label for="ePhone">Phone</label><input id="ePhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="60"></div>
+          </div>
+          <label for="eWhen">Best time to reach you</label>
+          <input id="eWhen" name="best_time" maxlength="120" placeholder="Mornings, after 4, Tuesdays &mdash; whatever suits">
+          <label for="eMsg">What is the job?</label>
+          <textarea id="eMsg" name="message" rows="5" maxlength="4000" placeholder="The slow one. What it involves, how often it comes up, and what makes it tedious."></textarea>
+          <div class="hp" aria-hidden="true"><label for="eSite">Website</label><input id="eSite" name="website" tabindex="-1" autocomplete="off"></div>
+          <div class="enqfoot">
+            <button type="submit" id="eGo">Send this</button>
+            <span class="enqnote" id="eNote">Either an email address or a phone number, so we can reply.</span>
+          </div>
+        </form>
+
+        <div class="contactbox" style="margin-top:34px">
+          <div class="label">OR EMAIL US DIRECTLY</div>
           <a href="mailto:info@watchcityanalytics.com">info@watchcityanalytics.com</a>
+          <p style="font-size:.93rem;margin-top:10px;color:var(--muted)">If your mail opens in a browser rather than an app, that link may do nothing &mdash; copy the address instead.</p>
         </div>
 
         <h2 style="margin-top:48px">What happens next</h2>
@@ -91,5 +115,66 @@
   </div>
 </footer>
 
+
+<script>
+/* The enquiry form. Posts to our own service rather than a third-party form
+   handler, so the message never leaves infrastructure we control. If the
+   script or the network fails, the email address above still works. */
+(function(){
+  var f = document.getElementById('enq');
+  if(!f) return;
+  var go = document.getElementById('eGo'), note = document.getElementById('eNote');
+  var ENDPOINT = 'https://interview.watchcityanalytics.com/api/enquiry';
+
+  function say(msg, bad){
+    note.textContent = msg;
+    note.className = 'enqnote' + (bad ? ' bad' : '');
+  }
+
+  f.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var body = {};
+    ['name','organization','email','phone','best_time','message','website']
+      .forEach(function(k){
+        var el = f.querySelector('[name="'+k+'"]');
+        body[k] = el ? el.value : '';
+      });
+
+    if(!body.message.trim()){ say('Tell us a little about the job first.', true);
+      f.querySelector('[name=message]').focus(); return; }
+    if(!body.email.trim() && !body.phone.trim()){
+      say('Leave an email address or a phone number, otherwise we cannot reply.', true);
+      f.querySelector('[name=email]').focus(); return; }
+
+    go.disabled = true; go.textContent = 'Sending\u2026'; say('');
+    try {
+      var r = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(body)
+      });
+      var data = {};
+      try { data = await r.json(); } catch(err){}
+      if(!r.ok) throw new Error(data.detail || data.error ||
+        'Something went wrong at our end.');
+      f.innerHTML = '<div class="enqok"><h3>That is with us.</h3>' +
+        '<p>A person reads every one of these. You will hear back either way, ' +
+        'including when the honest answer is that there is not enough in it ' +
+        'to be worth doing.</p></div>';
+    } catch(err){
+      go.disabled = false; go.textContent = 'Send this';
+      // fetch() rejects with "Failed to fetch" when the network is at fault.
+      // Nobody outside software knows what that means.
+      var offline = (err instanceof TypeError) ||
+                    /failed to fetch|networkerror|load failed/i.test(err.message || '');
+      say(offline
+            ? 'We could not reach our server just now. Try again in a minute, or email info@watchcityanalytics.com.'
+            : (err.message || 'Something went wrong at our end.') +
+              ' You can also email info@watchcityanalytics.com.',
+          true);
+    }
+  });
+})();
+</script>
 </body>
 </html>

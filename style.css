@@ -341,3 +341,51 @@ footer.site .mark { font-family: var(--display); color: #fff; font-size: 1.05rem
   padding: 5px 11px; margin-bottom: 16px;
 }
 section.dark .tag { color: #C79A4A; border-color: #2B3741; }
+
+/* ---------------- enquiry form ---------------- */
+/* mailto: is the weakest contact route there is: a buyer on webmail clicks it
+   and nothing happens. This is the one that works for them. */
+
+.enq { margin-top: 24px; max-width: 640px; }
+.enq label {
+  display: block; font-size: .82rem; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600; margin: 18px 0 6px;
+}
+.enq input, .enq textarea {
+  width: 100%; font: inherit; font-size: 1rem; color: var(--ink);
+  background: #fff; border: 1px solid var(--rule); border-radius: 2px;
+  padding: 12px 13px; min-height: 48px; line-height: 1.5;
+}
+.enq textarea { resize: vertical; min-height: 130px; }
+.enq input:focus-visible, .enq textarea:focus-visible {
+  outline: 2px solid var(--brass); outline-offset: 1px;
+}
+.enq .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+@media (max-width: 560px) { .enq .pair { grid-template-columns: 1fr; } }
+/* The honeypot. Off-screen rather than display:none, which some bots skip. */
+.enq .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.enqfoot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 26px; }
+.enq button {
+  font: inherit; font-weight: 600; font-size: 1rem; cursor: pointer; border: 0;
+  border-radius: 2px; padding: 15px 32px; background: var(--brass); color: #fff;
+  min-height: 48px;
+}
+.enq button:hover:not(:disabled) { background: #A4712A; }
+.enq button:disabled { opacity: .5; cursor: default; }
+.enqnote { font-size: .94rem; color: var(--muted); max-width: 38ch; }
+.enqnote.bad { color: #9C4526; font-weight: 500; }
+.enqok { border-left: 3px solid var(--brass); padding-left: 20px; }
+.enqok h3 { font-family: var(--display); font-size: 1.3rem; color: var(--ink); margin-bottom: 8px; }
+
+/* Keyboard users should not have to tab the whole navigation on every page. */
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--brass); color: #fff; padding: 12px 18px;
+  text-decoration: none; font-weight: 600; border-radius: 0 0 2px 0;
+}
+.skip:focus { left: 0; }
+[id="main"]:focus { outline: none; }
+
+/* Footer links were the only navigation without a thumb-sized hit area. */
+footer.site ul { gap: 14px 22px; }
+footer.site ul a { display: inline-block; padding: 7px 0; }

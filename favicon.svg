@@ -1,7 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#0d1b2a"/>
-  <circle cx="32" cy="32" r="19" fill="none" stroke="#2f6f8f" stroke-width="3"/>
-  <path d="M32 19 L32 32 L41 38" fill="none" stroke="#ffffff" stroke-width="3.5"
-        stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="32" cy="32" r="2.6" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Watch City Analytics">
+  <title>Watch City Analytics</title>
+  <!-- Favicon cut of the mark. Ticks and the minute hand are dropped: at 16px
+       they turn to mud. What survives is the shape that identifies it — round
+       case, terracotta level, one hand. Solid navy ground so it reads on a light
+       or a dark browser tab. -->
+  <defs>
+    <clipPath id="fvDial"><circle cx="50" cy="50" r="46"/></clipPath>
+  </defs>
+  <circle cx="50" cy="50" r="46" fill="#1B3A4B"/>
+  <rect x="0" y="62" width="100" height="38" fill="#C17F59" clip-path="url(#fvDial)"/>
+  <circle cx="50" cy="50" r="46" fill="none" stroke="#F3EFE9" stroke-width="5"/>
+  <line x1="50" y1="50" x2="71" y2="67.5" stroke="#F3EFE9" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="50" cy="50" r="5" fill="#F3EFE9"/>
 </svg>

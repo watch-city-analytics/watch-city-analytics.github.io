@@ -56,11 +56,51 @@ header.site .wrap {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 14px; padding-block: 20px;
 }
-.brand {
-  font-family: var(--display); font-size: 1.22rem; font-weight: 500;
-  color: #fff; text-decoration: none; letter-spacing: -.01em;
+/* ---------------- the mark ---------------- */
+/* Inlined rather than linked so it takes the site's own webfonts and can be
+   recoloured for the dark header. Brand colours are navy #1B3A4B and terracotta
+   #C17F59; on the near-black header the navy line work would vanish, so the
+   case, ticks and hands invert to cream and the terracotta level carries the
+   colour. The level is clipped to the dial — drawn as a plain rectangle it
+   spills past the case and reads as a bucket rather than a fill line. */
+.brand { display: block; text-decoration: none; line-height: 0; }
+.brand .logo { height: 54px; width: auto; display: block; overflow: visible; }
+.lgLevel { fill: #C17F59; }
+.lgCase  { fill: none; stroke: #F3EFE9; stroke-width: 3.4; }
+.lgTicks line { stroke: #F3EFE9; stroke-width: 1.7; stroke-linecap: round; }
+.lgHour  { stroke: #F3EFE9; stroke-width: 3.4; stroke-linecap: round; }
+.lgMin   { stroke: #F3EFE9; stroke-width: 2.2; stroke-linecap: round; }
+.lgPivot { fill: #F3EFE9; }
+.lgWord {
+  font-family: var(--display); font-size: 36px; font-weight: 600;
+  fill: #fff; letter-spacing: -.4px;
 }
-.brand em { font-style: italic; color: #C79A4A; }
+.lgSub {
+  font-family: "Public Sans", system-ui, -apple-system, sans-serif;
+  font-size: 14px; font-weight: 600; fill: #C17F59; letter-spacing: 3px;
+}
+.brand:hover .lgLevel { fill: #D08F66; }
+.brand:focus-visible { outline: 2px solid #C17F59; outline-offset: 4px; border-radius: 3px; }
+@media (max-width: 860px) { .brand .logo { height: 48px; } }
+@media (max-width: 420px) { .brand .logo { height: 44px; } }
+
+/* The hands start at 4:20 and run backwards, and the dial fills as they go.
+   Two hours are wound off — the minute hand turns twice, the hour hand sixty
+   degrees, which is the true 12:1 gearing, so it reads as a movement and not as
+   a decoration. It plays once and settles full. That is the proposition drawn
+   rather than written: time taken back, and the hours returned to you.
+   Near-linear through the middle with soft ends, so nothing jerks. */
+@media (prefers-reduced-motion: no-preference) {
+  .lgHour, .lgMin, .lgLevel { transform-box: view-box; }
+  .lgHour, .lgMin { transform-origin: 30px 34px; }
+  .lgMin   { animation: wcaUnwindMin 5.2s cubic-bezier(.25,0,.25,1) forwards; }
+  .lgHour  { animation: wcaUnwindHr  5.2s cubic-bezier(.25,0,.25,1) forwards; }
+  .lgLevel { animation: wcaFill      5.2s cubic-bezier(.25,0,.25,1) forwards;
+             transition: fill .25s ease; }
+}
+@keyframes wcaUnwindMin { to { transform: rotate(-720deg); } }
+@keyframes wcaUnwindHr  { to { transform: rotate(-60deg);  } }
+@keyframes wcaFill      { to { transform: translateY(-36px); } }
 nav.site ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 24px; }
 nav.site a {
   /* Generous hit area — these links get tapped by thumbs on phones. */
@@ -162,7 +202,7 @@ h3 {
   font-family: var(--display); font-weight: 500; font-size: 1.24rem;
   color: var(--ink); margin-bottom: 9px;
 }
-.lede { margin-top: 18px; max-width: 66ch; font-size: 1.09rem; color: var(--ink); }
+.lede { margin-top: 18px; max-width: 66ch; font-size: 1.22rem; color: var(--ink); }
 p { max-width: 68ch; }
 p + p { margin-top: 16px; }
 .rule { position: relative; width: 54px; height: 3px; background: var(--brass); margin-bottom: 26px; }
@@ -179,7 +219,7 @@ section.dark .rule::before { background-image: repeating-linear-gradient(to righ
 
 .split { display: grid; grid-template-columns: minmax(0,1fr) 270px; gap: 52px; align-items: start; }
 @media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 32px; } }
-.rail { font-size: .89rem; }
+.rail { font-size: .97rem; }
 .rail .note { border-left: 2px solid var(--brass); padding-left: 15px; margin-bottom: 26px; }
 .rail .note b { display: block; color: var(--ink); font-size: .79rem;
   letter-spacing: .05em; font-weight: 600; margin-bottom: 5px; }
@@ -191,7 +231,7 @@ section.dark .rail .note b { color: #fff; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 32px; margin-top: 44px; }
 .grid.two { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 .card { background: var(--paper); border: 1px solid var(--rule); border-top: 3px solid var(--brass); padding: 28px 26px; }
-.card p { font-size: .99rem; }
+.card p { font-size: 1.06rem; }
 section.dark .card { background: #16202733; border-color: #2B3741; border-top-color: #C79A4A; }
 
 /* ---------------- stepped list (real sequence) ---------------- */
@@ -247,13 +287,23 @@ section.dark .card { background: #16202733; border-color: #2B3741; border-top-co
 
 /* ---------------- footer ---------------- */
 
-footer.site { background: var(--deep); color: #8FA0AC; font-size: .92rem; }
+footer.site { background: var(--deep); color: #97A8B4; font-size: 1rem; }
 footer.site .wrap { padding-block: 42px; display: flex; flex-wrap: wrap;
   gap: 18px; justify-content: space-between; align-items: flex-start; }
 footer.site a { color: #BFC9D1; text-decoration: none; }
 footer.site a:hover { color: #fff; }
 footer.site ul { list-style: none; display: flex; flex-wrap: wrap; gap: 22px; }
 footer.site .mark { font-family: var(--display); color: #fff; font-size: 1.05rem; }
+/* Phone on every page, because the buyer most likely to call is the one least
+   likely to fill in a form. The number is a link on every device, not just a
+   string of digits a thumb cannot act on. */
+.footcontact { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+.footcontact a { color: #fff; text-decoration: none; font-weight: 600; }
+.footcontact a[href^="tel:"] { font-size: 1.22rem; letter-spacing: .01em; }
+.footcontact a:hover { color: #E3B468; text-decoration: underline; }
+.footcontact span { color: #8FA0AC; font-size: .95rem; }
+.footmark { height: 50px; width: auto; display: block; overflow: visible; }
+@media (max-width: 760px) { .footmark { height: 44px; } }
 
 
 /* ---------------- the mechanism ---------------- */

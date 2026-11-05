@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 404 104" role="img" aria-label="Watch City Analytics">
+  <title>Watch City Analytics</title>
+  <!-- Canonical mark, navy #1B3A4B on terracotta #C17F59, for LIGHT backgrounds.
+       The dark-header version is inlined in each page so it can take the site's
+       own webfonts and invert cleanly. Fill is clipped to the dial: the original
+       drew the band as a rectangle, which spilled past the case and read as a
+       bucket rather than a level. -->
+  <defs>
+    <clipPath id="dial"><circle cx="52" cy="52" r="40"/></clipPath>
+  </defs>
+
+  <!-- dial -->
+  <circle cx="52" cy="52" r="40" fill="#FFFFFF"/>
+  <!-- level: flat top, bottom follows the case -->
+  <rect x="8" y="64" width="88" height="32" fill="#C17F59" clip-path="url(#dial)"/>
+  <!-- case -->
+  <circle cx="52" cy="52" r="42.5" fill="none" stroke="#1B3A4B" stroke-width="5"/>
+
+  <g stroke="#1B3A4B" stroke-width="2" stroke-linecap="round">
+    <line x1="52" y1="16" x2="52" y2="23"/>
+    <line x1="52" y1="81" x2="52" y2="88"/>
+    <line x1="16" y1="52" x2="23" y2="52"/>
+    <line x1="81" y1="52" x2="88" y2="52"/>
+    <line x1="77.5" y1="27.5" x2="73" y2="32"/>
+    <line x1="26.5" y1="27.5" x2="31" y2="32"/>
+    <line x1="77.5" y1="76.5" x2="73" y2="72"/>
+    <line x1="26.5" y1="76.5" x2="31" y2="72"/>
+  </g>
+
+  <!-- hands at 4:20 -->
+  <line x1="52" y1="52" x2="68.9" y2="66.1" stroke="#1B3A4B" stroke-width="5" stroke-linecap="round"/>
+  <line x1="52" y1="52" x2="79.7" y2="68.0" stroke="#1B3A4B" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="52" cy="52" r="3.6" fill="#1B3A4B"/>
+
+  <text x="114" y="54" font-family="Newsreader, Georgia, 'Times New Roman', serif"
+        font-size="40" font-weight="600" fill="#1B3A4B" letter-spacing="-0.5">Watch City</text>
+  <text x="116" y="82" font-family="'Public Sans', system-ui, -apple-system, sans-serif"
+        font-size="15" font-weight="500" fill="#C17F59" letter-spacing="3.6">ANALYTICS</text>
+</svg>

@@ -428,10 +428,10 @@ async def start(request: Request):
 
     if len(_ip_sessions[ip]) >= MAX_SESSIONS_PER_IP_PER_DAY:
         raise HTTPException(429, "You have reached the interview limit for today. "
-                                 "Email info@watchcityanalytics.com and we will pick it up there.")
+                                 "Call 617-444-9294 or email info@watchcityanalytics.com and we will pick it up there.")
     if _budget_left() <= 0:
         raise HTTPException(503, "The interview is unavailable right now. "
-                                 "Email info@watchcityanalytics.com and we will do it live.")
+                                 "Call 617-444-9294 or email info@watchcityanalytics.com and we will do it live.")
 
     sid = uuid.uuid4().hex
     _sessions[sid] = {"history": [], "turns": 0, "last": now, "ip": ip,
@@ -458,7 +458,7 @@ async def message(body: Msg, request: Request):
 
     if _budget_left() <= 0:
         raise HTTPException(503, "The interview is unavailable right now. "
-                                 "Email info@watchcityanalytics.com and we will do it live.")
+                                 "Call 617-444-9294 or email info@watchcityanalytics.com and we will do it live.")
 
     # Already asked who they are: re-prompt rather than spend a model call
     # on an answer we are not going to use.
@@ -648,7 +648,7 @@ async def enquiry(body: Enquiry, request: Request):
     if len(recent) >= 5:
         raise HTTPException(status_code=429,
                             detail="That is a few more than we can take from one "
-                                   "place in an hour. Email info@watchcityanalytics.com "
+                                   "place in an hour. Call 617-444-9294 or email info@watchcityanalytics.com "
                                    "and it will reach us.")
     # Counted before anything can reject the request, so a failed or trapped
     # submission still spends against the limit rather than being free.

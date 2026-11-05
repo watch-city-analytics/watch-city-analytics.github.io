@@ -389,3 +389,12 @@ section.dark .tag { color: #C79A4A; border-color: #2B3741; }
 /* Footer links were the only navigation without a thumb-sized hit area. */
 footer.site ul { gap: 14px 22px; }
 footer.site ul a { display: inline-block; padding: 7px 0; }
+
+/* The frequency unit. A once-a-year report is not a weekly one. */
+.setrow select {
+  flex: 0 0 auto; font: inherit; font-size: 1rem; color: var(--ink);
+  background: #fff; border: 1px solid var(--rule); border-radius: 2px;
+  padding: 11px 10px; min-height: 48px;
+}
+.setrow select:focus-visible { outline: 2px solid var(--brass); outline-offset: 1px; }
+@media (max-width: 420px) { .setrow { flex-wrap: wrap; } .setrow input[type=range] { flex: 1 0 100%; } }

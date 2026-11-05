@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Watch City Analytics — we give you back the afternoon that job eats</title>
+<title>Watch City Analytics — We give you back the afternoon that job eats</title>
 <meta name="description" content="For state and local government, schools and colleges, small businesses and non-profits. We find what one slow job really costs you in hours. Finding out is free.">
 <link rel="canonical" href="https://watchcityanalytics.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Watch City Analytics">
 <meta property="og:url" content="https://watchcityanalytics.com/">
-<meta property="og:title" content="Watch City Analytics — we give you back the afternoon that job eats">
+<meta property="og:title" content="Watch City Analytics — We give you back the afternoon that job eats">
 <meta property="og:description" content="You know the work. We give you back the afternoon it eats. The assessment is free.">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,10 +80,10 @@
 
     <div class="calc">
       <div class="readout">
-        <div class="big"><span id="jHours">240</span><small id="jHoursU">hours a year, on this one job</small></div>
-        <div class="weeks" id="jWeeks" aria-live="polite">That is <strong>6.0</strong> working weeks &mdash; shaded below, out of forty&#8209;eight.</div>
+        <div class="big" aria-live="polite"><span id="jHours">240</span><small id="jHoursU">hours a year, on this one job</small></div>
+        <div class="weeks" id="jWeeks" aria-live="polite">That is <strong>6</strong> working weeks out of forty&#8209;eight.</div>
         <div class="grid52" id="jGrid" aria-hidden="true"></div>
-        <p class="caption">Your own numbers, over forty&#8209;eight working weeks &mdash; we have left four for holidays and closures. Nothing assumed about what could be saved.</p>
+        <p class="caption">Your own numbers, over forty&#8209;eight working weeks &mdash; we have left four for holidays and closures.</p>
         <div class="actions" style="margin-top:24px">
           <a class="btn" href="https://interview.watchcityanalytics.com/">Tell us how the job gets done</a>
         </div>
@@ -91,12 +91,17 @@
 
       <div class="inputs">
         <div class="field">
-          <label for="jCount">How many times a week does it come up?</label>
+          <label for="jCount">How often does it come up?</label>
           <div class="setrow">
             <input type="range" id="jCount" min="1" max="200" value="25" aria-describedby="jCountH">
-            <input type="number" id="jCountN" min="1" max="200" value="25" aria-label="Times a week, as a number">
+            <input type="number" id="jCountN" min="1" max="200" value="25" aria-label="How many times">
+            <select id="jEvery" aria-label="How often">
+              <option value="48" selected>a week</option>
+              <option value="12">a month</option>
+              <option value="1">a year</option>
+            </select>
           </div>
-          <div class="hint" id="jCountH">Permits. Purchase orders. Invoices. Work orders. Whatever the repeated thing is.</div>
+          <div class="hint" id="jCountH">Permits. Purchase orders. Invoices. Work orders. A report that only comes around once a year counts too &mdash; change the box to match.</div>
         </div>
         <div class="field">
           <label for="jMins">How many minutes of staff time does one take?</label>
@@ -117,21 +122,24 @@
     <div class="split">
       <div>
         <div class="rule"></div>
-        <h2>It started with one career. It runs on the people that career introduced.</h2>
+        <h2>It started with one career. It runs on the people that career introduced him to.</h2>
         <p class="lede">Large companies have architects. People whose whole job is to ask what happens to the data, what this costs in year three, and what it takes to leave a vendor. Everyone else gets sold to as though they have those people, and they do not.</p>
 
-        <p>This practice began with Sanjay Patel’s thirty years building IT systems, nearly three decades of it at EMC and Dell, doing one thing over and over — working out what an organization actually needs, then deciding what should be built and, as often, what should not. That is a long time to learn how organizations get trapped by their own tools.</p>
+        <p>It began with Sanjay Patel’s thirty years building IT systems, nearly three decades of it at EMC and Dell. What that bought is two kinds of judgment, and they happen to be the two this work needs.</p>
 
-        <p>It is also a long time to meet people. Operators who ran finance, athletics, property and production before they ever touched AI. Architects who have built the systems that hold the records of very large companies. Builders, designers and developers who are the best in the room at their own trade. Not strangers from a directory — people he has worked beside, over decades, and would put his name next to.</p>
+        <p><strong>Knowing what a working method looks like.</strong> He has watched a great many fail, always the same way: the organization buys the system first and discovers what it actually needed afterward. What avoids it is the unglamorous step everybody skips — going and watching the work before anyone proposes anything.</p>
 
-        <p><strong>The arrangement is fractional.</strong> You will never afford these people full time, and you do not need them full time. You need the right one of them for the few weeks your problem actually takes. That is what this is: senior specialists, for the fraction of time the job calls for, and not an hour more.</p>
+        <p><strong>Knowing who is actually good.</strong> That many years in rooms with strong teams teaches you to tell quickly who can do a thing from who is only describing it. It is the whole reason a bench like this can exist.</p>
+
+        <p>Operators who ran finance, athletics, property and production before they ever touched AI. Architects who have built the systems that hold the records of very large companies. Builders, designers and developers who are the best in the room at their own trade. Not strangers from a directory — people he has worked beside, over decades, and would put his name next to.</p>
+
+        <p><strong>The arrangement is fractional.</strong> You will never afford these people full time, and you do not need them full time. You need the right one of them for the few weeks your problem actually takes. That is what this is: senior specialists, for the fraction of time the job calls for.</p>
 
         <p>What makes it a practice rather than a list of contractors is the method, and the method is his. Start with one job. Watch it actually get done, because what a process is supposed to be and what it really is are never quite the same. Measure what it costs in hours before anybody proposes anything. Build on what you already own, so you can leave. Everyone who works here works that way, or they do not work here.</p>
       </div>
       <aside class="rail">
-        <div class="note"><b>WHO WE WORK WITH</b><span>State and local government. School districts, colleges and athletic programs. Small businesses and non-profits. In procurement language: SLED, plus small business and non-profit.</span></div>
         <div class="note"><b>HOW WE START</b><span>One job. Time spent watching it actually get done. A free assessment and a number you can check, before you pay anything.</span></div>
-        <div class="note"><b>HOW IT IS STAFFED</b><span>Fractional. A senior specialist for the weeks your problem needs one, chosen by name from people we have worked with for decades. Never a junior, never a stranger.</span></div>
+        <div class="note"><b>HOW IT IS STAFFED</b><span>Fractional. A senior specialist for the weeks your problem needs one, chosen by name from people we have worked with for decades, paired with practitioners who grew up inside these tools. Never a stranger, and never a hand-off.</span></div>
         <div class="note"><b>WHERE WE ARE</b><span>Maine and Massachusetts, working with organizations across New England and beyond.</span></div>
       </aside>
     </div>
@@ -141,9 +149,8 @@
 <section class="alt">
   <div class="wrap">
     <div class="rule"></div>
-    <h2>It started with a town whose youth sports teams could not afford to compete</h2>
-    <p class="lede">A few years ago the question was narrow and practical: youth sports run on video now, and the software that makes that work costs more than some towns can pay. How does a community that cannot afford it give its kids the same shot as the town down the road?</p>
-    <p>At the time, it could not. Coaches, most of them volunteers, spend their week watching video — their own games, and the team they play next — looking for the patterns that decide the next one. That work sat behind a subscription some programs could absorb and others could not, and the gap compounded every season. Then it became clear what was possible once AI was applied to the problem — not as a product to sell, but as a way to rebuild the capability out of parts a town could actually afford.</p>
+    <h2>It started with a town that could not afford to compete</h2>
+    <p class="lede">A few years ago the question was narrow and practical: how does a community that cannot afford the dominant video platform give its kids the same shot as the town down the road?</p>
     <p>That is the whole firm. Build what a small organization is being priced out of, on infrastructure it controls.</p>
     <div class="actions">
       <a class="btn" href="about.html">Read the rest</a>
@@ -154,8 +161,8 @@
 <section class="alt">
   <div class="wrap">
     <div class="rule"></div>
-    <h2>We are small on purpose, and specialized on purpose.</h2>
-    <p class="lede">Not a generalist firm that will take any job. A short list of worlds we actually understand, because somebody here has done the work or sat beside the person doing it. When we do not know a trade, we say so and bring in somebody who does, by name.</p>
+    <h2>Specialized on purpose, and boutique by design.</h2>
+    <p class="lede">Not a generalist firm that will take any job. A short list of worlds we actually understand, because somebody here has done the work or sat beside the person doing it. Sanjay brings the pattern across industries and technologies; the bench brings depth in your actual trade.</p>
 
     <div class="grid">
       <div class="card">
@@ -167,8 +174,8 @@
         <p>Business offices, athletic departments and administrators from K&ndash;12 through higher ed. Purchasing, restricted-fund reporting, enrollment paperwork, film and performance analysis.</p>
       </div>
       <div class="card">
-        <h3>Small business and non-profits</h3>
-        <p>Operations that run on one or two people&rsquo;s memory and no IT department. Property managers, service businesses, boards and volunteers doing by hand what the big version of them automated a decade ago.</p>
+        <h3>Small businesses and non-profits</h3>
+        <p>Operations that run on one or two people&rsquo;s memories, with no IT department behind them. Property managers, service businesses, boards and volunteers doing by hand what the big version of them automated a decade ago.</p>
       </div>
       <div class="card">
         <h3>Builders and the trades</h3>
@@ -194,7 +201,7 @@
     <div class="grid">
       <div class="card">
         <h3>Your data is the advantage</h3>
-        <p>If a platform learns from your operation and sells that improvement to everyone in your category, you have funded your competitor's capability. We build so what you know stays yours.</p>
+        <p>If a platform learns from your operation and sells that improvement to everyone in your category, you have funded your competitors&rsquo; capability. We build so what you know stays yours.</p>
       </div>
       <div class="card">
         <h3>We design to what you have</h3>
@@ -208,6 +215,26 @@
   </div>
 </section>
 
+<section class="alt">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>What happens after the free write-up</h2>
+    <p class="lede">The assessment costs nothing and ends with a number. If the hours are there, here is the shape of the work.</p>
+
+    <div class="split" style="margin-top:34px">
+      <div>
+        <p>We will tell you the year-three running cost before you commit, because software that is affordable until it is not has burned enough people already.</p>
+
+        <p>You will know who is doing the work before they start, by name, and that person stays until the job is done.</p>
+      </div>
+      <aside class="rail">
+        <div class="note"><b>SHAPE</b><span>Fixed scope, fixed fee, sized so the hours returned cover the cost.</span></div>
+        <div class="note"><b>LENGTH</b><span>A few hours a week, for a few weeks to a few months. Not a retainer that quietly renews.</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
 <section class="dark">
   <div class="wrap">
     <div class="split">
@@ -215,7 +242,7 @@
         <div class="rule"></div>
         <h2>Start by telling us about one job</h2>
         <p class="lede" style="color:#C3CDD5">Ten minutes, online, in your own words. We ask the same questions we would ask sitting in your office — all of them about how the work gets done, none of them about technology. At the end you get the job written down properly, start to finish. That is yours to keep whether you ever call us or not.</p>
-        <p style="margin-top:16px">No name, no account, and nobody rings you unless you ask. Send it to us and we will tell you where we think the hours actually are — including when the honest answer is that there are not enough of them to bother.</p>
+        <p style="margin-top:16px">Send it to us and we will tell you where we think the hours actually are — including when the honest answer is that there are not enough of them to bother.</p>
         <div class="actions">
           <a class="btn light" href="https://interview.watchcityanalytics.com/">Tell us how the job gets done</a>
           <a class="btn ghost" href="contact.html">Or email us</a>
@@ -256,6 +283,7 @@
   var WEEKS = 48;               // a working year, holidays and closures removed
   var DAY = 8, WEEK = 40;
 
+  var ev = document.getElementById('jEvery');
   var c  = document.getElementById('jCount'), cN = document.getElementById('jCountN'),
       m  = document.getElementById('jMins'),  mN = document.getElementById('jMinsN'),
       hrs= document.getElementById('jHours'), hrsU = document.getElementById('jHoursU'),
@@ -275,7 +303,11 @@
 
   function render(){
     var n = +c.value, mi = +m.value;
-    var hours = n * mi * WEEKS / 60;
+    // How many of these happen in a working year. A June report that eats a
+    // week happens once, not forty-eight times; the earlier version could only
+    // say "a week" and overstated an annual job roughly fivefold.
+    var per = ev ? +ev.value : WEEKS;
+    var hours = n * mi * per / 60;
 
     hrs.textContent = hours < 10 ? hours.toFixed(1).replace(/\.0$/,'') : Math.round(hours).toLocaleString();
     hrsU.textContent = (hours >= 0.95 && hours < 1.05) ? 'hour a year, on this one job'

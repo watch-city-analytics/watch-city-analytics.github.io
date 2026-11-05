@@ -49,7 +49,7 @@
         <div class="rule"></div>
         <h2>Two ways in</h2>
 
-        <p class="lede"><strong>Tell us about one job.</strong> Ten minutes, online, in your own words, no preparation. We ask the same questions we would ask sitting in your office — all about how the work gets done, none about technology. No name, no account, and nobody rings you unless you ask. At the end you get the job written down properly, and that is yours to keep whatever happens next.</p>
+        <p class="lede"><strong>Tell us about one job.</strong> Ten minutes, online, in your own words, no preparation. We ask the same questions we would ask sitting in your office — all about how the work gets done, none about technology. No name, no account, and nobody calls you unless you ask. At the end you get the job written down properly, and that is yours to keep whatever happens next.</p>
 
         <div class="actions" style="margin-top:18px">
           <a class="btn" href="https://interview.watchcityanalytics.com/">Tell us how the job gets done</a>
@@ -68,10 +68,13 @@
             <div><label for="ePhone">Phone</label><input id="ePhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="60"></div>
           </div>
           <label for="eWhen">Best time to reach you</label>
-          <input id="eWhen" name="best_time" maxlength="120" placeholder="Mornings, after 4, Tuesdays &mdash; whatever suits">
+          <input id="eWhen" name="best_time" maxlength="120" placeholder="Mornings, after 4, Tuesdays &mdash; whatever works">
           <label for="eMsg">What is the job?</label>
           <textarea id="eMsg" name="message" rows="5" maxlength="4000" placeholder="The slow one. What it involves, how often it comes up, and what makes it tedious."></textarea>
-          <div class="hp" aria-hidden="true"><label for="eSite">Website</label><input id="eSite" name="website" tabindex="-1" autocomplete="off"></div>
+          <!-- Spam trap. No label and a name no form-filler recognizes: a field
+               called "website" gets filled by password managers set to fill
+               everything, and a real sender was then silently discarded. -->
+          <div class="hp" aria-hidden="true"><input id="eCp2" name="contact_pref_2" tabindex="-1" autocomplete="off"></div>
           <div class="enqfoot">
             <button type="submit" id="eGo">Send this</button>
             <span class="enqnote" id="eNote">Either an email address or a phone number, so we can reply.</span>
@@ -89,7 +92,7 @@
         <p>You pay nothing until there is a number you can check.</p>
       </div>
       <aside class="rail">
-        <div class="note"><b>WORKING WITH US</b><span>Fractional and fixed fee. A senior specialist for the weeks the work takes, scoped so the time returned covers the cost. We tell you the year-three running cost before you commit.</span></div>
+        <div class="note"><b>WORKING WITH US</b><span>Fractional and fixed fee. A senior specialist for the weeks the work takes, scoped so the time returned covers the cost.</span></div>
         <div class="note"><b>HIRING</b><span>Looking for work rather than help? <a href="careers.html">Working here</a>, or write to jobs@watchcityanalytics.com.</span></div>
         <div class="note"><b>WHO WE WORK WITH</b><span>State and local government, school districts and colleges, small businesses and non-profits. In procurement language: SLED, plus small business and non-profit.</span></div>
         <div class="note"><b>WHERE WE ARE</b><span>Maine and Massachusetts. Remote for most of the work, on site when the work needs eyes on it.</span></div>
@@ -117,7 +120,7 @@
 
 
 <script>
-/* The enquiry form. Posts to our own service rather than a third-party form
+/* The inquiry form. Posts to our own service rather than a third-party form
    handler, so the message never leaves infrastructure we control. If the
    script or the network fails, the email address above still works. */
 (function(){
@@ -134,7 +137,7 @@
   f.addEventListener('submit', async function(e){
     e.preventDefault();
     var body = {};
-    ['name','organization','email','phone','best_time','message','website']
+    ['name','organization','email','phone','best_time','message','contact_pref_2']
       .forEach(function(k){
         var el = f.querySelector('[name="'+k+'"]');
         body[k] = el ? el.value : '';

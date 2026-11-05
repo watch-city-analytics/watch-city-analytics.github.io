@@ -12,9 +12,12 @@ open-weight models are served.
 """
 
 import os
+import re
 import json
 import time
 import uuid
+import hashlib
+import secrets
 import logging
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -51,7 +54,7 @@ REQUEST_TIMEOUT = float(os.getenv("REQUEST_TIMEOUT", "120"))
 BRIEF_BUCKET = os.getenv("BRIEF_BUCKET", "").strip()
 # The transcript is the visitor's own words about their business. Worth
 # keeping for scoping, but it is theirs, so it is a deliberate switch.
-STORE_TRANSCRIPT = os.getenv("STORE_TRANSCRIPT", "true").strip().lower() == "true"
+STORE_TRANSCRIPT = os.getenv("STORE_TRANSCRIPT", "false").strip().lower() == "true"
 
 if not API_KEY:
     log.warning("MODEL_API_KEY is not set — the service will refuse every request.")
@@ -93,6 +96,20 @@ def _note_spend(n):
     _spend["tokens"] += max(0, int(n or 0))
 
 
+# Matches an opening or closing visitor_input tag in any casing or spacing, so
+# a split or disguised tag cannot survive the strip in _spotlight below.
+_TAG_RE = re.compile(r"</?\s*visitor_input\s*>", re.I)
+
+# Per-process salt: rate limiting still uses the real address, but nothing
+# durable records it. Restarting the instance breaks the linkage on purpose.
+_IP_SALT = secrets.token_bytes(16)
+
+
+def _ip_tag(ip: str) -> str:
+    """A short, stable-per-process pseudonym for an IP, safe to log."""
+    return hashlib.blake2s(_IP_SALT + ip.encode("utf-8"), digest_size=4).hexdigest()
+
+
 def _prune():
     now = time.time()
     for sid in [s for s, v in _sessions.items() if now - v["last"] > SESSION_IDLE_SECONDS]:
@@ -109,10 +126,15 @@ def _prune():
 
 
 def _client_ip(request: Request) -> str:
-    # Cloud Run and most proxies put the real client first in X-Forwarded-For.
+    # Cloud Run APPENDS the address it observed to any X-Forwarded-For the
+    # caller supplied, so the trustworthy entry is the LAST one. Reading the
+    # first entry let anyone defeat every per-IP limit here with one forged
+    # header. Verify against a real request's full header after deploy.
     fwd = request.headers.get("x-forwarded-for", "")
     if fwd:
-        return fwd.split(",")[0].strip()
+        parts = [x.strip() for x in fwd.split(",") if x.strip()]
+        if parts:
+            return parts[-1]
     return request.client.host if request.client else "unknown"
 
 
@@ -175,9 +197,14 @@ def _spotlight(text: str) -> str:
 
     Measurably reduces prompt-injection success across every model tested,
     costs nothing, and makes the trust boundary explicit to the model. The
-    stripping prevents a visitor closing the tag early to escape it.
+    stripping runs until stable: a single pass let a visitor split the tag
+    across itself ("</visitor</visitor_input>_input>") so that it reassembled
+    after replacement, landing their text OUTSIDE the delimiters and inside the
+    region the system prompt above declares trustworthy.
     """
-    cleaned = text.replace("<visitor_input>", "").replace("</visitor_input>", "")
+    cleaned = _TAG_RE.sub("", text)
+    while _TAG_RE.search(cleaned):
+        cleaned = _TAG_RE.sub("", cleaned)
     return f"<visitor_input>\n{cleaned}\n</visitor_input>"
 
 BRIEF = """The interview is over. Write a workflow brief for the Watch City Analytics
@@ -346,7 +373,9 @@ class StartReply(BaseModel):
 
 class Msg(BaseModel):
     session: str = Field(min_length=8, max_length=64)
-    message: str = Field(min_length=1)
+    # Without a max, FastAPI parses the whole body into memory before the
+    # MAX_MESSAGE_CHARS truncation downstream ever runs. Cloud Run allows 32MB.
+    message: str = Field(min_length=1, max_length=8000)
 
 
 class Contact(BaseModel):
@@ -377,21 +406,18 @@ class Enquiry(BaseModel):
     best_time: str = Field(default="", max_length=120)
     message: str = Field(default="", max_length=4000)
     # Honeypot. Real people never see it; bots fill everything.
-    website: str = Field(default="", max_length=200)
+    # Deliberately not called "website", "url" or anything a form-filler
+    # recognises; a named honeypot is a honeypot for real people too.
+    contact_pref_2: str = Field(default="", max_length=200)
 
 
 @app.get("/healthz")
 async def healthz():
+    # Public and unauthenticated. It used to return the provider, the model and
+    # the exact remaining token budget, which told an attacker which vendor to
+    # tailor an injection for and confirmed when the budget was drained.
     _roll_spend()
-    return {
-        "ok": True,
-        "provider": PROVIDER,
-        "model": MODEL,
-        "configured": bool(API_KEY),
-        "sessions": len(_sessions),
-        "tokens_today": _spend["tokens"],
-        "daily_budget": DAILY_TOKEN_BUDGET,
-    }
+    return {"ok": True}
 
 
 @app.post("/api/start", response_model=StartReply)
@@ -412,7 +438,7 @@ async def start(request: Request):
                       "awaiting_contact": False, "contact": None,
                       "started": datetime.now(timezone.utc).isoformat()}
     _ip_sessions[ip].append(now)
-    log.info("session start sid=%s ip=%s", sid[:8], ip)
+    log.info("session start sid=%s ip=%s", sid[:8], _ip_tag(ip))
     return StartReply(session=sid, maxTurns=MAX_TURNS)
 
 
@@ -581,16 +607,28 @@ async def _summarize(sid, sess):
     brief, used = await call_model(msgs, SYSTEM, max_tokens=2500)
     _note_spend(used)
 
-    log.info("brief written sid=%s turns=%s contact=%s",
-             sid[:8], sess["turns"], _contact_line(contact))
-    # Logged so it is recoverable even if archiving is off or fails. The
-    # CONTACT line is what a log-based alert extracts into a label.
-    log.info("BRIEF sid=%s CONTACT %s\n%s", sid[:8], _contact_line(contact), brief)
+    # One line, and deliberately contentless. The brief is the visitor's own
+    # account of their business and the contact line is their name and email;
+    # Cloud Logging is readable by anyone holding Logs Viewer on the project,
+    # and the page promises the visitor neither of those things happens. The
+    # alert still fires on "BRIEF sid=" — read the detail from the archive.
+    log.info("BRIEF sid=%s turns=%s contact=%s", sid[:8], sess["turns"],
+             "yes" if _contact_line(contact) else "no")
 
     if BRIEF_BUCKET:
         try:
             import asyncio
-            path = await asyncio.to_thread(_store_brief, sid, sess, brief)
+            # Only archived when the visitor actually gave us a way to reply.
+            # The page tells them "no name, no email, no account" and "send it
+            # to us when you are ready", which promises that handing it over is
+            # their decision. Keeping a copy of every anonymous brief would
+            # make that false, and an anonymous brief we cannot answer is not
+            # worth breaking the promise the whole page rests on.
+            _c = sess.get("contact") or {}
+            if any(v for v in _c.values()):
+                path = await asyncio.to_thread(_store_brief, sid, sess, brief)
+            else:
+                log.info("BRIEF sid=%s not archived: visitor skipped contact", sid[:8])
             log.info("brief archived sid=%s gs://%s/%s", sid[:8], BRIEF_BUCKET, path)
         except Exception as e:  # never cost the visitor their brief
             log.error("brief archive FAILED sid=%s: %s", sid[:8], e)
@@ -605,12 +643,6 @@ async def enquiry(body: Enquiry, request: Request):
     ip = _client_ip(request)
     now = time.time()
 
-    # A bot that filled the hidden field gets a cheerful 200 and nothing else.
-    # Telling it that it failed only teaches it to try again properly.
-    if body.website.strip():
-        log.info("enquiry honeypot tripped ip=%s", ip)
-        return JSONResponse({"ok": True})
-
     key = "enq:" + ip
     recent = [t for t in _ip_requests[key] if t > now - 3600]
     if len(recent) >= 5:
@@ -618,6 +650,26 @@ async def enquiry(body: Enquiry, request: Request):
                             detail="That is a few more than we can take from one "
                                    "place in an hour. Email info@watchcityanalytics.com "
                                    "and it will reach us.")
+    # Counted before anything can reject the request, so a failed or trapped
+    # submission still spends against the limit rather than being free.
+    _ip_requests[key].append(now)
+
+    # A bot that filled the hidden field gets a cheerful 200 and nothing else;
+    # telling it that it failed only teaches it to try again properly. But a
+    # password manager set to fill every field can trip this too, and the
+    # sender is told "that is with us" either way — so the payload is kept at
+    # WARNING, with a reference, and a real person who got caught is recoverable.
+    if body.contact_pref_2.strip():
+        trap_ref = uuid.uuid4().hex[:8]
+        log.warning(
+            "ENQUIRY-TRAPPED ref=%s ip=%s name=%s org=%s email=%s phone=%s | %s",
+            trap_ref, _ip_tag(ip),
+            " ".join(body.name.split()) or "not given",
+            " ".join(body.organization.split()) or "not given",
+            " ".join(body.email.split()) or "not given",
+            " ".join(body.phone.split()) or "not given",
+            " ".join(body.message.split())[:600] or "(empty)")
+        return JSONResponse({"ok": True})
 
     name = body.name.strip()
     email = body.email.strip()
@@ -637,7 +689,7 @@ async def enquiry(body: Enquiry, request: Request):
                             detail="That email address does not look right. "
                                    "Check it, or leave a phone number instead.")
 
-    _ip_requests[key].append(now)
+
     ref = uuid.uuid4().hex[:8]
     payload = {
         "ref": ref,
@@ -650,12 +702,18 @@ async def enquiry(body: Enquiry, request: Request):
         "message": message,
     }
 
-    # Logged first, and in the same shape the existing alert policy extracts,
-    # so an enquiry reaches a human even if archiving is off or broken.
-    log.info("ENQUIRY ref=%s CONTACT name=%s org=%s email=%s phone=%s best_time=%s\n%s",
-             ref, name or "not given", payload["organization"] or "not given",
-             email or "not given", phone or "not given",
-             payload["best_time"] or "not given", message)
+    # Logged in the same shape the existing alert policy extracts, so an
+    # enquiry reaches a human even if archiving is off or broken. Every field is
+    # newline-stripped first: a message containing a newline plus a fake
+    # "ENQUIRY ref=..." line would otherwise forge a log record indistinguishable
+    # from a real one, in the store of record the alert reads.
+    def _1line(v, fallback="not given"):
+        return " ".join(str(v or fallback).split())
+
+    log.info("ENQUIRY ref=%s CONTACT name=%s org=%s email=%s phone=%s best_time=%s | %s",
+             ref, _1line(name), _1line(payload["organization"]),
+             _1line(email), _1line(phone), _1line(payload["best_time"]),
+             _1line(message, "(empty)")[:600])
 
     if BRIEF_BUCKET:
         try:
